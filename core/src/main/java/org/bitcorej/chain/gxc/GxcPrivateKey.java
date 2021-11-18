@@ -64,8 +64,6 @@ public class GxcPrivateKey {
     private byte[] findPubKey(BigInteger bnum) {
         EcPoint Q = EcTools.multiply(mCurveParam.G(), bnum);// Secp256k1Param.G, bnum);
 
-        // Q를 curve 상에서, compressed point 로 변환하자. ( 압축을 위해 )
-
         Q = new EcPoint(Q.getCurve(), Q.getX(), Q.getY(), true);
 
         return Q.getEncoded();

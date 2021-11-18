@@ -39,7 +39,6 @@ import org.bitcorej.chain.ltc.LitecoinStateProvider;
 import org.bitcorej.chain.luna.LUNAStateProvider;
 import org.bitcorej.chain.mch.MCHStateProvider;
 import org.bitcorej.chain.meta.METAStateProvider;
-import org.bitcorej.chain.mtr.MTRStateProvider;
 import org.bitcorej.chain.naka.NAKAStateProvider;
 import org.bitcorej.chain.nas.NASStateProvider;
 import org.bitcorej.chain.nrg.NRGStateProvider;
@@ -61,13 +60,11 @@ import org.bitcorej.chain.stg.STGStateProvider;
 import org.bitcorej.chain.trx.TRXStateProvider;
 import org.bitcorej.chain.umi.UMIStateProvider;
 import org.bitcorej.chain.usdt.USDTStateProvider;
-import org.bitcorej.chain.vet.VETStateProvider;
 import org.bitcorej.chain.vrsc.VRSCStateProvider;
 import org.bitcorej.chain.vsys.VSYSStateProvider;
 import org.bitcorej.chain.west.WESTStateProvider;
 import org.bitcorej.chain.xmr.XMRStateProvider;
 import org.bitcorej.chain.xns.XNSStateProvider;
-import org.bitcorej.chain.xtz.XTZStateProvider;
 import org.bitcorej.chain.zcash.ZcashStateProvider;
 import org.bitcorej.chain.zcl.ZCLStateProvider;
 import org.bitcorej.chain.zen.ZENStateProvider;
@@ -80,8 +77,7 @@ import java.util.List;
 public class ChainStateProxy implements ChainState, UTXOState, USDTState, XMRState, ADATxBuilderState {
     private static HashMap<String, ChainState> services;
 
-    static
-    {
+    static {
         services = new HashMap<>();
         services.put("BTC_MAIN", new BitcoinStateProvider(Network.MAIN));
         services.put("BTC_TEST", new BitcoinStateProvider(Network.TEST));
@@ -124,9 +120,6 @@ public class ChainStateProxy implements ChainState, UTXOState, USDTState, XMRSta
         services.put("BHD", new BHDStateProvider(Network.MAIN));
         services.put("BHD_MAIN", new BHDStateProvider(Network.MAIN));
         services.put("BHD_TEST", new BHDStateProvider(Network.TEST));
-        services.put("VET", new VETStateProvider(Network.MAIN));
-        services.put("VET_MAIN", new VETStateProvider(Network.MAIN));
-        services.put("VET_TEST", new VETStateProvider(Network.TEST));
         services.put("IOST", new IOSTStateProvider());
         services.put("VSYS", new VSYSStateProvider());
         services.put("VSYS_MAIN", new VSYSStateProvider(Network.MAIN));
@@ -180,9 +173,6 @@ public class ChainStateProxy implements ChainState, UTXOState, USDTState, XMRSta
         BIPStateProvider bip = new BIPStateProvider();
         services.put("BIP", bip);
         services.put("BIP_MAIN", bip);
-        XTZStateProvider xtz = new XTZStateProvider();
-        services.put("XTZ", xtz);
-        services.put("XTZ_MAIN", xtz);
         RVNStateProvider rvn = new RVNStateProvider(Network.MAIN);
         services.put("RVN", rvn);
         services.put("RVN_MAIN", rvn);
@@ -198,9 +188,6 @@ public class ChainStateProxy implements ChainState, UTXOState, USDTState, XMRSta
         PMEERStateProvider pmeer = new PMEERStateProvider(Network.MAIN);
         services.put("PMEER", pmeer);
         services.put("PMEER_MAIN", pmeer);
-        MTRStateProvider mtr = new MTRStateProvider();
-        services.put("MTR", mtr);
-        services.put("MTR_MAIN", mtr);
         SOLStateProvider sol = new SOLStateProvider();
         services.put("SOL", sol);
         services.put("SOL_MAIN", sol);
@@ -267,11 +254,11 @@ public class ChainStateProxy implements ChainState, UTXOState, USDTState, XMRSta
         }
     }
 
-    public ChainStateProxy(String chain, String...args) throws Exception {
+    public ChainStateProxy(String chain, String... args) throws Exception {
         if (chain.toUpperCase().equals("ETH") && args.length == 2) {
             this.provider = services.get("ERC20");
-            ((ERC20StateProvider)this.provider).setAddress(args[0]);
-            ((ERC20StateProvider)this.provider).setDecimals(Integer.parseInt(args[1]));
+            ((ERC20StateProvider) this.provider).setAddress(args[0]);
+            ((ERC20StateProvider) this.provider).setDecimals(Integer.parseInt(args[1]));
         } else {
             this.provider = services.get(chain.toUpperCase());
         }

@@ -55,7 +55,7 @@ public class ByteReader implements Type.Reader{
 
     @Override
     public String getString() throws Type.InsufficientBytesException {
-        int size = (int)(getVariableUint() & 0x7FFFFFFF); // put 에서 variable uint 로 넣음.
+        int size = (int)(getVariableUint() & 0x7FFFFFFF);
         byte[] bytes = getBytes(size);
         return new String(bytes);
     }
